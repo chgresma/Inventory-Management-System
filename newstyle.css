@@ -28,26 +28,27 @@ h1 {
 input {
 	display: block;
 	border: 2px solid #ccc;
-	width: 95%;
+	width: 100%;
 	padding: 10px;
 	margin: 10px auto;
 	border-radius: 5px;
 }
 label {
 	color: #888;
-	font-size: 18px;
+	font-size: 18px; 
 	padding: 10px;
 }
 
 button {
-	float: right;
-	background: #5f9cd2;
-	padding: 10px 15px;
+	width:100%;
+	background: #e14f7b;
+	padding: 13px 15px;
 	color: #fff;
 	border-radius: 5px;
 	margin-right: 10px;
 	border: none;
 }
+
 button:hover{
 	opacity: .7;
 }
@@ -55,7 +56,7 @@ button:hover{
    background: #F2DEDE;
    color: #A94442;
    padding: 10px;
-   width: 95%;
+   width: 100%;
    border-radius: 5px;
    margin: 20px auto;
 }
@@ -66,15 +67,16 @@ h2 {
 }
 
 a {
-	float: right;
-	background: #5f9cd2;
-	padding: 10px 15px;
-	color: #fff;
+	float: left;
+	padding: 5px 10px;
+	color: rgb(0, 0, 0);
 	border-radius: 5px;
 	margin-right: 10px;
 	border: none;
-	text-decoration: none;
+	text-decoration: underline;
+	text-decoration-thickness: 5%;
 }
 a:hover{
 	opacity: .7;
 }
+
