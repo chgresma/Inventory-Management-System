@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>LOGIN</title>
-	<link rel="stylesheet" type="text/css" href="file.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<h1>INVENTORY SYSTEM</h1>
 </head>
 <body>
