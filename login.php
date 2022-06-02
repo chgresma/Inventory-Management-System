@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>LOGIN</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="newstyle.css">
 	<h1>INVENTORY SYSTEM</h1>
 </head>
 <body>
@@ -18,6 +18,7 @@
      	<input type="password" name="password" placeholder="Password" required><br>
 
      	<button type="submit">Login</button>
+		<div class="Register"><a href="Register.php">Register</a></div>
      </form>
 </body>
 </html>
@@ -51,31 +52,31 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 	$password = validate($_POST['password']);
 
 	if (empty($username)) {
-		header("error=Username is required");
+		header("Location Login.php?error=Username is required");
 	    exit();
 	}else if(empty($password)){
-        header("error=Password is required");
+        header("Location Login.php?error=Password is required");
 	    exit();
 	}else{
-		$sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+		$sql = "SELECT * FROM account WHERE userName='$username' AND passWord='$password'";
 
 		$result = mysqli_query($conn, $sql);
 
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-            if ($row['username'] === $username && $row['password'] === $password) {
+            if ($row['userName'] === $username && $row['passWord'] === $password) {
                     echo "Logged in!";
-            	$_SESSION['username'] = $row['username'];
+            	$_SESSION['userame'] = $row['userName'];
             	$_SESSION['name'] = $row['name'];
             	$_SESSION['id'] = $row['id'];
-            	header("Location: staffDashboard.php");
+            	header("Location: Dashboard.php");
 		        exit();
             }else{
-				header("error=Incorect Username or Password");
+				header("Location: Login.php?error=Incorect Username or Password");
 		        exit();
 			}
 		}else{
-			header("error=Incorect Username or Password");
+			header("Location: Login.php?error=Incorect Username or Password");
 	        exit();
 		}
 	}
@@ -84,4 +85,3 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 	exit();
 }
 ?>
-
