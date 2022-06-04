@@ -33,7 +33,7 @@ $db_name = "inventory_system";
 $conn = mysqli_connect($sname, $username, $password, $db_name);
 
 if (!$conn) {
-	echo "Connection failed!";
+	echo "<script>alert('Connection failed');</script>";
 }
 ?>
 
