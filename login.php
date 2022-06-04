@@ -69,6 +69,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             	$_SESSION['userame'] = $row['userName'];
             	$_SESSION['name'] = $row['name'];
             	$_SESSION['id'] = $row['id'];
+				/**
+				 * Do an sql statement here that will look for the $userName of the logged in user
+				 * in tables staff and supplier. If it exists, set the correct location for the
+				 * specific dashboard of the user.
+				 */
             	header("Location: Dashboard.php");
 		        exit();
             }else{
