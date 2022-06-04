@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Staff Dashboard</title>
+        <title>Supplier Dashboard</title>
 	    <link rel="stylesheet" type="text/css" href="SuppD-style.css">
 	    <h1>SUPPLIER DASHBOARD</h1>
     </head>  
     <body>
         <div>
-		    <label style="float: center;" >Welcome xx_aladin_xx!</label>
+            <label style="padding-left: 140px;">Welcome xx_aladdin_xx!</label>
         <div>
 
         <div class="row">
@@ -42,7 +42,7 @@
         
         <div class="column">
         <h2>DELIVERIES</h2>
-        <table style="width">
+        <table>
             <!--INSERT PHP CODE HERE-->
             <tr>
                 <th>Delivery ID</th>
@@ -74,9 +74,9 @@
             </table> </br>
             <form>
                 <select name ="dropdown" id="dropdown_selected">
-                    <option value="">---SELECT---</option></select>
+                    <option value="">-----------------SELECT-----------------</option></select>
                     <button type="reset">Cancel</button>
-                    <button type="button" style="margin-right: 20px;">Deliver</button>
+                    <button type="button" onclick="alert('Delivered!')" style="margin-right: 20px;">Deliver</button>
             </form> 
             </div>
         </div>
