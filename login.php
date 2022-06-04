@@ -198,7 +198,7 @@
 				$result = mysqli_query($conn, $sql);
 				// if the update is successful
 				if($result){
-					// delete the old password from the old_passwords table
+					// delete all the attempts of the user on success update password
 					$sqlDelete = "DELETE FROM authentication_attempts WHERE userName = '$username'";
 					$resultDelete = mysqli_query($conn, $sqlDelete);
 					
@@ -222,7 +222,7 @@
 		$username = filterInput($_POST['username']);
 		$password = filterInput($_POST['password']);
 
-		// if the username is emtpy
+		// if the username is empty
 		if (empty($username)) {
 			// redirect to login page with error message
 			header("Location: login.php?error=Username is required");
