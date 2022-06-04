@@ -23,20 +23,45 @@
                 <th>Payment</th>
                 <th>Username</th>
             </tr>
-            <tr>
-                <td>01</td>
-                <td>Orange</td>
-                <td>20</td>
-                <td>200</td>
-                <td>xx_aladin_xx</td>
-            </tr>
-            <tr>
-                <td>02</td>
-                <td>Apple</td>
-                <td>10</td>
-                <td>100</td>
-                <td>princessJ</td>
-        </tr>
+            <?php
+                $sname= "localhost";
+                $username= "root";
+                $password = "";
+                
+                $db_name = "inventory_system";
+                
+                $conn = mysqli_connect($sname, $username, $password, $db_name);
+                if($conn){
+                    $query = "SELECT * FROM itemrequests";
+                    $requests = mysqli_query($conn,$query);
+                    $check = mysqli_num_rows($requests);
+                    if($check == 0){
+                            echo "
+                                <tr>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>";
+                    }
+                    else{
+                        while($row = mysqli_fetch_assoc($requests)){
+                            echo "
+                                <tr>
+                                    <td>".$row['requestID']."</td>
+                                    <td>".$row['itemName']."</td>
+                                    <td>".$row['quantityRequest']."</td>
+                                    <td>".$row['payment']."</td>
+                                    <td>".$row['userName']."</td>
+                                </tr>";
+                        }
+                    }
+                }
+                else{
+                    echo "<script>alert('Connection failed');</script>";
+                }
+            ?>
         </table>
         </div>
         
