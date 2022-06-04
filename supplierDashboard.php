@@ -36,6 +36,7 @@
                     $requests = mysqli_query($conn,$query);
                     $check = mysqli_num_rows($requests);
                     if($check == 0){
+                        //setonly 1 row of N/A if the table is empty
                             echo "
                                 <tr>
                                     <td>N/A</td>
