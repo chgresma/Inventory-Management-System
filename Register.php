@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,20 +9,45 @@
 	</head>
 	<body>
 
-        <!-- P A R T I A L not yet connected to database-->
-        
-        <!-- Bootstrap v5.2 is used for styling-->
 <div>
 	<?php 
-
+	
+		$con = mysqli_connect("localhost","root", "","inventory_system");
 		if(isset($_POST['create'])){
 			$username 	= $_POST['username'];
 			$firstname 	= $_POST['firstname'];
 			$middlename = $_POST['middlename'];
 			$lastname 	= $_POST['lastname'];
 			$password 	= $_POST['password'];
-		
-			echo $username ." ". $firstname ." ".$middlename ." ". $lastname ." ". $password;
+			
+			$errors = array();
+
+			$u = "SELECT userName FROM account WHERE userName = '$username'";
+			$uu = mysqli_query($con,$u);
+			
+
+			if(empty($username)){
+				$errors['u'] = "Username Required";
+				
+			}else if(mysqli_num_rows($uu) > 0)
+				$errors['u'] = "Username Exists";
+			
+
+			
+			
+			if(count($errors)==0){
+				
+				$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord) VALUES('$username','$firstname','$middlename','$lastname','$password')";
+				$result = mysqli_query($con,$query);
+
+				if($result){
+					echo "very nice";
+				}
+				else{
+					echo "not very nice";
+				}
+			}
+
 		}
 	?>
 </div>
@@ -35,9 +63,10 @@
 			<hr class="mb-3"> 
 				<label for="username"><b>Username</b></label>
 				<input class="form-control" type = "text" name = "username" required>
+				<p class="text-danger">	<?php if(isset($errors['u'])) echo $errors['u'];?>	</p>
 
 				<label for="firstname"><b>First Name</b></label>
-				<input class="form-control" type = "text" name = "firstname" required>
+				<input class="form-control" type = "text" name = "firstname" requiredv>
 
 				<label for="middlename"><b>Middle Name</b></label>
 				<input class="form-control" type = "text" name = "middlename" required>
@@ -55,5 +84,7 @@
 	</form>
 </div>
 
-	</body>
+
+</body>
 </html>
+
