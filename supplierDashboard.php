@@ -33,9 +33,9 @@
                 $conn = mysqli_connect($sname, $username, $password, $db_name);
                 if($conn){
                     $query = "SELECT * FROM itemrequests";
-                    $requests = mysqli_query($conn,$query);
-                    $check = mysqli_num_rows($requests);
-                    if($check == 0){
+                    $requests = mysqli_query($conn,$query);//returned results
+                    $check = mysqli_num_rows($requests);//result counter
+                    if($check == 0){//if empty
                         //setonly 1 row of N/A if the table is empty
                             echo "
                                 <tr>
@@ -46,17 +46,8 @@
                                     <td>N/A</td>
                                 </tr>";
                     }
-                    else{
-                        while($row = mysqli_fetch_assoc($requests)){
-                            echo "
-                                <tr>
-                                    <td>".$row['requestID']."</td>
-                                    <td>".$row['itemName']."</td>
-                                    <td>".$row['quantityRequest']."</td>
-                                    <td>".$row['payment']."</td>
-                                    <td>".$row['userName']."</td>
-                                </tr>";
-                        }
+                    else{//if not empty
+                        //art implement your code here, see comments of this commit in github as well
                     }
                 }
                 else{
