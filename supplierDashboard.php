@@ -48,6 +48,8 @@
                     }
                     else{//if not empty
                         //art implement your code here, see comments of this commit in github as well
+			//refer to https://cebuinstituteoftechnology.sharepoint.com/sites/CSIT226-G2/Class%20Materials/MYSQLFunctions.mp4
+			//timestamp 16:42
                     }
                 }
                 else{
