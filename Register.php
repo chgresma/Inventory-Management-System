@@ -16,11 +16,11 @@
 		if(isset($_POST['create'])){
 			$username 	= $_POST['username'];
 			$firstname 	= $_POST['firstname'];
-			$middlename = $_POST['middlename'];
+			$middlename     = $_POST['middlename'];
 			$lastname 	= $_POST['lastname'];
 			$password 	= $_POST['password'];
-			$role       = $_POST['role'];
-			$cpassword  = $_POST['cpassword'];
+			$role           = $_POST['role'];
+			$cpassword      = $_POST['cpassword'];
 			
 			
 			
