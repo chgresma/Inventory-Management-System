@@ -42,9 +42,12 @@
 				if($password === $cpassword && $role != "0"){
 
 					$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord,role) VALUES('$username','$firstname','$middlename','$lastname','$password','$role')";
+			                // check this one para ni sa old password nga ma input sad sa table nga account_old_passwords
+					$query2 = "INSERT INTO account_old_passwords(userName, old_password) VALUES('$username', '$password')";
 					$result = mysqli_query($con,$query);
+					$result2 = mysqli_query($con, $query2);
 
-					if($result){
+					if($result && $result2){
 						echo "Registered";
 						if($role === 'Staff'){
 							header("Location: staffDashboard.php");
