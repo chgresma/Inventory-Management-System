@@ -122,7 +122,7 @@
 				<option value = "Supplier">Supplier</option>
 				</select>
 				<?php if($norole){
-					echo '<div class="alert alert-danger alert-dismissable fade show" >No role xaded</div>';
+					echo '<div class="alert alert-danger alert-dismissable fade show" >Please select valid value from dropdown list</div>';
 				} 
 				?>
 					
