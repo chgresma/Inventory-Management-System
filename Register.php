@@ -48,11 +48,15 @@
 						echo "Registered";
 						if($role === 'Staff'){
 							header("Location: staffDashboard.php");
+							$query = "INSERT INTO staff(userName) VALUES('$username')";
+							$result = mysqli_query($con,$query);
 							exit();
 							}
 
 						else if($role === 'Supplier'){
 							header("Location: supplierDashboard.php");
+							$query = "INSERT INTO supplier(userName) VALUES('$username')";
+							$result = mysqli_query($con,$query);
 							exit();
 						}
 						
@@ -123,6 +127,7 @@
 				</select>
 				<?php if($norole){
 					echo '<div class="alert alert-danger alert-dismissable fade show" >Please select valid value from dropdown list</div>';
+					
 				} 
 				?>
 					
