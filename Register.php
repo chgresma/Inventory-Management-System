@@ -13,12 +13,15 @@
 	<?php 
 	
 		$con = mysqli_connect("localhost","root", "","inventory_system");
+		$result = $con->query("SELECT Rolenames FROM roles");
 		if(isset($_POST['create'])){
 			$username 	= $_POST['username'];
 			$firstname 	= $_POST['firstname'];
 			$middlename = $_POST['middlename'];
 			$lastname 	= $_POST['lastname'];
 			$password 	= $_POST['password'];
+			$roles      = $_POST['roles'];
+			
 			
 			$errors = array();
 
@@ -37,14 +40,14 @@
 			
 			if(count($errors)==0){
 				
-				$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord) VALUES('$username','$firstname','$middlename','$lastname','$password')";
+				$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord,role) VALUES('$username','$firstname','$middlename','$lastname','$password','$roles')";
 				$result = mysqli_query($con,$query);
 
 				if($result){
-					echo " Register successful";
+					echo "Registered";
 				}
 				else{
-					echo "Register unsuccessful";
+					echo "Not Registered";
 				}
 			}
 
@@ -75,7 +78,17 @@
 				<input class="form-control" type = "text" name = "lastname" required>
 
 				<label for="password"><b>Password</b></label>
-				<input class="form-control" type = "password" name = "password" required>
+				<input class="form-control" type = "password" name = "password" required><br>
+
+				<label for="roles"><b>Roles</b></label><br>
+
+				<select name ="roles" id = "roles">
+				<option value = "0" selected = "selected">Please select your role</option>
+				<option value = "Staff">Staff</option>
+				<option value = "Supplier">Supplier</option>
+				</select>
+					
+				</select>
 				<hr class="mb-3">
 				<input class="btn btn-primary "type="submit" name="create" value="Register">
 			</div>
