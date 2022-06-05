@@ -1,6 +1,4 @@
-<?php
 
-?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,7 +9,8 @@
 
 <div>
 	<?php 
-	
+		$invalid = 0;
+		$norole = 0;
 		$con = mysqli_connect("localhost","root", "","inventory_system");
 		$result = $con->query("SELECT Rolenames FROM roles");
 		if(isset($_POST['create'])){
@@ -20,13 +19,17 @@
 			$middlename = $_POST['middlename'];
 			$lastname 	= $_POST['lastname'];
 			$password 	= $_POST['password'];
-			$roles      = $_POST['roles'];
+			$role       = $_POST['role'];
+			$cpassword  = $_POST['cpassword'];
+			
 			
 			
 			$errors = array();
 
 			$u = "SELECT userName FROM account WHERE userName = '$username'";
 			$uu = mysqli_query($con,$u);
+
+			
 			
 
 			if(empty($username)){
@@ -35,21 +38,44 @@
 			}else if(mysqli_num_rows($uu) > 0)
 				$errors['u'] = "Username Exists";
 			
-
-			
-			
 			if(count($errors)==0){
-				
-				$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord,role) VALUES('$username','$firstname','$middlename','$lastname','$password','$roles')";
-				$result = mysqli_query($con,$query);
+				if($password === $cpassword && $role != "0"){
 
-				if($result){
-					echo "Registered";
+					$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord,role) VALUES('$username','$firstname','$middlename','$lastname','$password','$role')";
+					$result = mysqli_query($con,$query);
+
+					if($result){
+						echo "Registered";
+						if($role === 'Staff'){
+							header("Location: staffDashboard.php");
+							exit();
+							}
+
+						else if($role === 'Supplier'){
+							header("Location: supplierDashboard.php");
+							exit();
+						}
+						
+						
+					}
+					else{
+						echo "Not Registered";
+					}
+
+
+				}else if($password != $cpassword){
+					$invalid=1;
+
+				}else if($role == "0"){
+					$norole=1;
 				}
-				else{
-					echo "Not Registered";
-				}
-			}
+
+
+
+			}	
+			
+
+			
 
 		}
 	?>
@@ -78,26 +104,41 @@
 				<input class="form-control" type = "text" name = "lastname" required>
 
 				<label for="password"><b>Password</b></label>
-				<input class="form-control" type = "password" name = "password" required><br>
+				<input class="form-control" type = "password" name = "password" required>
 
-				<label for="roles"><b>Roles</b></label><br>
+				<label for="cpassword"><b>Confirm password</b></label>
+				<input class="form-control" type = "password" name = "cpassword" required>
+				<?php if($invalid){
+					echo '<div class="alert alert-danger alert-dismissable fade show" >Please reconfirm password</div>';
+				} 
+				?>
 
-				<select name ="roles" id = "roles">
-				<option value = "0" selected = "selected">Please select your role</option>
+
+				<label for="role"><b>Roles</b></label><br>
+
+				<select name ="role" id = "role">
+				<option value = "0">Please select your role</option>
 				<option value = "Staff">Staff</option>
 				<option value = "Supplier">Supplier</option>
 				</select>
+				<?php if($norole){
+					echo '<div class="alert alert-danger alert-dismissable fade show" >No role xaded</div>';
+				} 
+				?>
 					
 				</select>
 				<hr class="mb-3">
-				<input class="btn btn-primary "type="submit" name="create" value="Register">
+				<input class="btn btn-primary " class = "button" type="submit" name="create" value="Register">
 			</div>
 		</div>
 		</div>
 	</form>
+
+
 </div>
 
 
 </body>
 </html>
+
 
