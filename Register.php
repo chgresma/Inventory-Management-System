@@ -41,10 +41,10 @@
 				$result = mysqli_query($con,$query);
 
 				if($result){
-					echo "very nice";
+					echo " Register successful";
 				}
 				else{
-					echo "not very nice";
+					echo "Register unsuccessful";
 				}
 			}
 
