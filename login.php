@@ -194,7 +194,7 @@
 			if(mysqli_num_rows($result) > 0){
 				$row = mysqli_fetch_assoc($result); // fetch the row
 				// update the two tables with new password
-				$sql = "UPDATE account_old_passwords AP, account A  SET AP.old_password = '$new_password', A.passWord ='$new_password' WHERE A.userName = '$username'" AND "AP.userName = '$username'";
+				$sql = "UPDATE account_old_passwords AP, account A  SET AP.old_password = '$new_password', A.passWord ='$new_password' WHERE AP.userName = A.userName AND AP.userName = '$username'";
 				$result = mysqli_query($conn, $sql);
 				// if the update is successful
 				if($result){
