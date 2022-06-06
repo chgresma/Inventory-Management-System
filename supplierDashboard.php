@@ -7,7 +7,7 @@
     </head>  
     <body>
         <div>
-            <label style="padding-left: 140px;">Welcome xx_aladdin_xx!</label>
+            <label style="padding-left: 140px;">Welcome <?php session_start(); print_r($_SESSION["userName"])?>!</label>
         <div>
 
         <div class="row">
@@ -63,7 +63,13 @@
                     echo "<script>alert('Connection failed');</script>";
                 }
             ?>
-        </table>
+        </table></br>
+        <form method = "post">
+                <select name ="dropdownItemRequest" id="dropdown_selectedItemRequest">
+                    <option value="---------------SELECT-----------------">-----------------SELECT-----------------</option>
+                </select>
+                <button type="submit" name = "deliver" style="margin-right: 135px;">Deliver</button>
+        </form> 
         </div>
         
         <div class="column">
@@ -87,6 +93,8 @@
                     if($check == 0){
                         echo "
                                 <tr>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
                                     <td>N/A</td>
                                     <td>N/A</td>
                                     <td>N/A</td>
@@ -116,26 +124,9 @@
             <form method = "post">
                 <select name ="dropdownItemRequest" id="dropdown_selectedItemRequest">
                     <option value="-----------------SELECT-----------------">-----------------SELECT-----------------</option>
-                    <?php
-                        if($conn){
-                            $itemToRequest = "SELECT requestID, itemName FROM itemrequests";
-                            $allRequests = mysqli_query($conn,$itemToRequest);
-                            while ($rows = mysqli_fetch_assoc($sql)) {
-                                if(!empty($_POST['dropdownItemRequest']) && $_POST['dropdownItemRequest'] == $rows['dropdownItemRequest']){
-                                    $selectedRequest = 'selected ="selected"';
-                                }
-                                else{
-                                    $selectedRequest = '';
-                                }
-                                ?>
-                                <option value = "<?php echo $data['requestID']; ?>" $selectedRequest><?php echo $rows['itemName']; ?></option>
-                                <?php
-                            }
-                        }
-                    ?>
-                </select>
-                    <button type="submit" name="cancelDelivery">Cancel</button>
-                    <button type="submit" name = "deliver" style="margin-right: 20px;">Deliver</button>
+
+                </select> 
+                <button type="submit" name="cancelDelivery">Cancel</button>
             </form> 
             </div>
         </div>
