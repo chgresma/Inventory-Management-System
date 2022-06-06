@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+    session_start();  
+    $con = mysqli_connect("localhost","root","","inventory_system") or die("Error");
+?>
 <html>
 
 <head>
@@ -9,7 +13,7 @@
 
 <body>
     <div>
-        <label style="float: center;">Welcome xx_aladin_xx!</label>
+        <label style="float: center;">Welcome <?php echo  $_SESSION['userName']; ?>!</label>
 
 
         <div>
@@ -39,27 +43,44 @@
                                 <td>princessMae</td>
                             </tr>
 
-                            </form>
+                        </div>
                     </table>
                     <br>
 
-                    <form>
+                    <form method="post">
 
-                        <button type="button" style="margin-right: 5px;"> Update</button>
-                        <button type="reset" style="margin-right: 5px;"> Delete </button>
-                        <button type="button" style="margin-right: 5px;">Add</button>
-
+                        <button type="button" name="btnupdate" style="margin-right: 5px;"> Update</button>
+                        <button type="reset" name="btndelete" style="margin-right: 5px;"> Delete </button>
+                        <button type="button" name="btnadd" style="margin-right: 5px;">Add</button>
                         <select name="dropdown" id="dropdown_selected">
-                        <option value="">-SELECT-</option></select>
+                        <option value="">-SELECT-</option>
+                        <?php  
+                            
+                            if($con){
+                                $list = "select itemName from items";
+                                $sql = mysqli_query($con,$list);
+                                while ($data = mysqli_fetch_assoc($sql)) {
+                                if(!empty($_POST['dropdown']) && $_POST['dropdown'] == $data['dropdown']){
+                                    $selected = 'selected ="selected"';
+                                }
+                                else{
+                                    $selected = '';
+                                }
+                                ?>
+                                <option value = "<?php echo $data['itemName']; ?>" $selected><?php echo $data['itemName']; ?></option>
+                                <?php
+                            }
+                            }
+                        ?>
+                    </select>
 
 
                     </form>
                 </div>
             <br> 
             <br>
-
+            &nbsp;&nbsp;&nbsp;
                 <div>
-   
                     <div class="row">
                         <div class="column">
                             <h2>ITEM REQUEST</h2>
@@ -96,11 +117,33 @@
                                 <button type="button" style="margin-right: 10px;"> Request</button>
                                 <button type="reset" style="margin-right: 50px;"> Cancel </button>
                                 <select name="dropdown" id="dropdown_selected">
-                                <option value="">-SELECT-</option></select>
+                                <option value="">-SELECT-</option>
+                                 <?php  
+                            
+                            if($con){
+                                $list = "select itemName from itemrequests";
+                                $sql = mysqli_query($con,$list);
+                                while ($data = mysqli_fetch_assoc($sql)) {
+                                if(!empty($_POST['dropdown']) && $_POST['dropdown'] == $data['dropdown']){
+                                    $selected = 'selected ="selected"';
+                                }
+                                else{
+                                    $selected = '';
+                                }
+                                ?>
+                                <option value = "<?php echo $data['itemName']; ?>" $selected><?php echo $data['itemName']; ?></option>
+                                <?php
+                            }
+                            }
+                        ?>
+
+                            </select>
     
         
                             </form>
                         </div>
+
+            
 
              
             </div>
@@ -112,3 +155,8 @@
 </body>
 
 </html>
+<?php if(isset($_POST['btnadd'])){
+    $add = "select * from items";
+    $resultadd = mysqli_query($con, $add);
+}
+        header('Location:makepayment.php'); ?>
