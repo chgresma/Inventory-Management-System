@@ -46,10 +46,17 @@
                                     <td>N/A</td>
                                 </tr>";
                     }
-                    else{//if not empty
-                        //art implement your code here, see comments of this commit in github as well
-			//refer to https://cebuinstituteoftechnology.sharepoint.com/sites/CSIT226-G2/Class%20Materials/MYSQLFunctions.mp4
-			//timestamp 16:42
+                    else{
+                        while($row = mysqli_fetch_assoc($requests)){
+                            echo "
+                                <tr>
+                                    <td>".$row['requestID']."</td>
+                                    <td>".$row['itemName']."</td>
+                                    <td>".$row['quantityRequest']."</td>
+                                    <td>".$row['payment']."</td>
+                                    <td>".$row['userName']."</td>
+                                </tr>";
+                        }
                     }
                 }
                 else{
@@ -72,32 +79,81 @@
                 <th>Supplier Username</th>
                 <th>Payment Change</th>
             </tr>
-            <tr>
-                <td>001</td>
-                <td>01</td>
-                <td>Orange</td>
-                <td>200</td>
-                <td>xx_aladin_xx</td>
-                <td>xx_aladin_xx</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>002</td>
-                <td>02</td>
-                <td>Apple</td>
-                <td>100</td>
-                <td>princessJ</td>
-                <td>princessJ</td>
-                <td>0</td>
-            </tr>
+            <?php
+                if($conn){
+                    $query = "SELECT * FROM deliveryitem";
+                    $deliveries = mysqli_query($conn,$query);
+                    $check = mysqli_num_rows($deliveries);
+                    if($check == 0){
+                        echo "
+                                <tr>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>";
+                    }
+                    else{
+                        while($row = mysqli_fetch_assoc($deliveries)){
+                            echo "
+                                <tr>
+                                    <td>".$row['deliveryID']."</td>
+                                    <td>".$row['requestID']."</td>
+                                    <td>".$row['itemName']."</td>
+                                    <td>".$row['quantityDelivered']."</td>
+                                    <td>".$row['staff_userName']."</td>
+                                    <td>".$row['supplier_userName']."</td>
+                                    <td>".$row['paymentChange']."</td>
+                                </tr>";
+                        }
+                    }
+                }else{
+                    echo "<script>alert('Connection failed');</script>";
+                }
+            ?>
             </table> </br>
-            <form>
-                <select name ="dropdown" id="dropdown_selected">
-                    <option value="">-----------------SELECT-----------------</option></select>
-                    <button type="reset">Cancel</button>
-                    <button type="button" onclick="alert('Delivered!')" style="margin-right: 20px;">Deliver</button>
+            <form method = "post">
+                <select name ="dropdownItemRequest" id="dropdown_selectedItemRequest">
+                    <option value="-----------------SELECT-----------------">-----------------SELECT-----------------</option>
+                    <?php
+                        if($conn){
+                            $itemToRequest = "SELECT requestID, itemName FROM itemrequests";
+                            $allRequests = mysqli_query($conn,$itemToRequest);
+                            while ($rows = mysqli_fetch_assoc($sql)) {
+                                if(!empty($_POST['dropdownItemRequest']) && $_POST['dropdownItemRequest'] == $rows['dropdownItemRequest']){
+                                    $selectedRequest = 'selected ="selected"';
+                                }
+                                else{
+                                    $selectedRequest = '';
+                                }
+                                ?>
+                                <option value = "<?php echo $data['requestID']; ?>" $selectedRequest><?php echo $rows['itemName']; ?></option>
+                                <?php
+                            }
+                        }
+                    ?>
+                </select>
+                    <button type="submit" name="cancelDelivery">Cancel</button>
+                    <button type="submit" name = "deliver" style="margin-right: 20px;">Deliver</button>
             </form> 
             </div>
         </div>
     </body>
 </html>
+
+<?php
+    if($conn){
+        if(isset($_POST['deliver'])){
+            $postSelected_request = $_POST['dropdownItemRequest'];
+            $must_select_req = "Must select a request to deliver";
+            //to be continued in implementing the selected itemrequest to deliver
+            
+        }
+        else if(isset($_POST['cancelDelivery'])){
+            $postSelected_delivery = $_POST['dropdownDeliveries'];
+            $must_select_del = "Must select a delivery to cancel.";
+            //to be continued in implementing the selected delivery to cancel
+        }
+    }
+?>
