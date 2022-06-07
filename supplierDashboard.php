@@ -8,7 +8,7 @@
     <body>
     
         <div>
-            <label style="padding-left: 900px;">Welcome <?php session_start(); print_r($_SESSION["userName"])?>!</label></br>
+            <label style="padding-left: 900px;">Welcome <?php session_start(); print_r($_SESSION["username"])?>!</label></br>
             <button style="width: auto;" onclick="location.href='logout.php';" value="logout">Logout</button>
         </div>
         <div class="row">
@@ -184,7 +184,7 @@
                         $quantityDelivered = 0;
                         $payment = 0;;
                         $staffUserName = "";
-                        $supplierUsername = $_SESSION["userName"];
+                        $supplierUsername = $_SESSION["username"];
                         $getRequest = "SELECT * FROM itemrequests WHERE itemName = '".$postSelected_request."'";
                         $gotRequest = mysqli_query($conn,$getRequest);
                         while($row = mysqli_fetch_assoc($gotRequest)){
