@@ -26,9 +26,7 @@
                 $sname= "localhost";
                 $username= "root";
                 $password = "";
-                
                 $db_name = "inventory_system";
-                
                 $conn = mysqli_connect($sname, $username, $password, $db_name);
                 if($conn){
                     $query = "SELECT * FROM itemrequests";
@@ -202,12 +200,19 @@
                         $expectedPay = $quantityDelivered * $priceHolder;
                         $paymentChange = $payment - $expectedPay;
                         
-                        $insertDelivery = "INSERT INTO deliveryitem (deliveryID, requestID, itemName, quantityDelivered, staff_userName, supplier_userName, paymentChange) 
-                                            VALUES(NULL, '".$requestID."', '".$itemName."', '".$quantityDelivered."', '".$staffUserName."', '".$supplierUsername."', '".$paymentChange."')";
+                        $insertDelivery="INSERT INTO deliveryitem (deliveryID, requestID, itemName, quantityDelivered, staff_userName, supplier_userName, paymentChange) 
+                                            VALUES(NULL, 
+                                            '".$requestID."', 
+                                            '".$itemName."', 
+                                            '".$quantityDelivered."', 
+                                            '".$staffUserName."', 
+                                            '".$supplierUsername."', 
+                                            '".$paymentChange."')";
                         $deleteRequest = "DELETE FROM itemrequests WHERE itemName = '".$postSelected_request."'";
-                        mysqli_query($conn, $insertDelivery);
-                        echo "<script>alert('Successfully Delivered');  window.location.href = 'supplierDashboard.php';</script>";
-                        //mysqli_query($conn, $deleteRequest);
+                        if(mysqli_query($conn, $insertDelivery)){
+                            echo "<script>alert('Successfully Delivered');  window.location.href = 'supplierDashboard.php';</script>";
+                            mysqli_query($conn, $deleteRequest);
+                        }
                         
                     }
                 }else{
@@ -216,8 +221,6 @@
             }catch(Exception $e){
                 echo "<script>alert('".$e->getMessage()."');</script>";
             }
-
-            
         }
         else if(isset($_POST['cancelDelivery'])){
             $postSelected_delivery = $_POST['dropdownDeliveries'];
