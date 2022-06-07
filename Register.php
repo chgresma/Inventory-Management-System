@@ -44,7 +44,7 @@
 					$query = "INSERT INTO account(userName,firstName,middleName,lastName,passWord,role) VALUES('$username','$firstname','$middlename','$lastname','$password','$role')";
 					$result = mysqli_query($con,$query);
 
-					if($result && $result2){
+					if($result){
 						echo "Registered";
 						if($role === 'Staff'){
 							header("Location: staffDashboard.php");
