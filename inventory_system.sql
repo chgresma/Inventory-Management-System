@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 04, 2022 at 10:14 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Host: 127.0.0.1
+-- Generation Time: Jun 07, 2022 at 12:38 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,8 @@ CREATE TABLE `account_old_passwords` (
 --
 
 INSERT INTO `account_old_passwords` (`userName`, `old_password`, `date_created`) VALUES
-('princessJ', 'testing', '2022-06-04 20:12:39');
+('princessJ', 'testing', '2022-06-07 09:48:13'),
+('xx_aladin_xx', 'iloveyouprincessj', '2022-06-07 09:48:33');
 
 -- --------------------------------------------------------
 
@@ -117,16 +118,6 @@ CREATE TABLE `items` (
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `items`
---
-
-INSERT INTO `items` (`itemName`, `stocks`, `pricePerStock`, `userName`) VALUES
-('Apple', 0, 8, 'princessJ'),
-('Banana', 0, 6, 'princessJ'),
-('Grapes', 0, 4, 'princessJ'),
-('Orange', 0, 5, 'princessJ');
-
 -- --------------------------------------------------------
 
 --
@@ -138,13 +129,6 @@ CREATE TABLE `staff` (
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `staff`
---
-
-INSERT INTO `staff` (`staffID`, `userName`) VALUES
-(1, 'princessJ');
-
 -- --------------------------------------------------------
 
 --
@@ -155,13 +139,6 @@ CREATE TABLE `supplier` (
   `supplierID` int(11) NOT NULL,
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `supplier`
---
-
-INSERT INTO `supplier` (`supplierID`, `userName`) VALUES
-(1, 'xx_aladin_xx');
 
 --
 -- Indexes for dumped tables
@@ -177,6 +154,7 @@ ALTER TABLE `account`
 -- Indexes for table `account_old_passwords`
 --
 ALTER TABLE `account_old_passwords`
+  ADD PRIMARY KEY (`userName`),
   ADD KEY `fk_username_old_password` (`userName`);
 
 --
@@ -260,7 +238,7 @@ ALTER TABLE `supplier`
 -- Constraints for table `account_old_passwords`
 --
 ALTER TABLE `account_old_passwords`
-  ADD CONSTRAINT `fk_username_old_password` FOREIGN KEY (`userName`) REFERENCES `account` (`userName`);
+  ADD CONSTRAINT `fk_username_old_password` FOREIGN KEY (`userName`) REFERENCES `account` (`userName`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `authentication_attempts`
@@ -294,13 +272,13 @@ ALTER TABLE `items`
 -- Constraints for table `staff`
 --
 ALTER TABLE `staff`
-  ADD CONSTRAINT `staff_userName_FK` FOREIGN KEY (`userName`) REFERENCES `account` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `staff_userName_FK` FOREIGN KEY (`userName`) REFERENCES `account` (`userName`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `supplier`
 --
 ALTER TABLE `supplier`
-  ADD CONSTRAINT `supplier_userName_FK` FOREIGN KEY (`userName`) REFERENCES `account` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `supplier_userName_FK` FOREIGN KEY (`userName`) REFERENCES `account` (`userName`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

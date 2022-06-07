@@ -1,7 +1,7 @@
 body {
 	background: #e3f2ff;
 	display: flex;
-	justify-content: auto;
+	justify-content: right;
 	align-items: center;
 	height: 100vh;
 	flex-direction: column;
@@ -36,11 +36,11 @@ select{
     border-radius: 5px;
 	margin-right: 10px;
     padding: 5px 10px;
-	width: 50%;
+	width: 30%;
 }
 
 option{
-    text-align: center;
+    text-align: auto;
 }
 
 button {
@@ -49,7 +49,7 @@ button {
     padding: 5px 10px;
 	color: black;
 	border-radius: 5px;
-	width: 13%;
+	width: 22%;
 }
 button:hover{
 	opacity: .7;
@@ -102,9 +102,5 @@ table{
   
   .column {
     flex: 30%;
-    padding: 5px;
-  }
-
-  .button{
     padding: 5px;
   }
