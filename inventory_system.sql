@@ -47,26 +47,6 @@ INSERT INTO `account` (`userName`, `firstName`, `middleName`, `lastName`, `passW
 -- --------------------------------------------------------
 
 --
--- Table structure for table `account_old_passwords`
---
-
-CREATE TABLE `account_old_passwords` (
-  `userName` varchar(255) NOT NULL,
-  `old_password` varchar(255) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `account_old_passwords`
---
-
-INSERT INTO `account_old_passwords` (`userName`, `old_password`, `date_created`) VALUES
-('princessJ', 'testing', '2022-06-07 09:48:13'),
-('xx_aladin_xx', 'iloveyouprincessj', '2022-06-07 09:48:33');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `authentication_attempts`
 --
 
