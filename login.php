@@ -257,7 +257,7 @@
 							$_SESSION['role'] = $row['role'];
 							
 							// change the location to the identified role page
-							header("Location: home.php"); // the home.php is just an example of the redirecting page
+							header("Location: staffDashboard.php"); // the home.php is just an example of the redirecting page
 							exit();
 						} else {
 							echo "Logged in as Supplier!";
@@ -265,7 +265,7 @@
 							$_SESSION['role'] = $row['role'];
 	
 							// change the location to the identified role page
-							header("Location: home.php"); // the home.php is just an example of the redirecting page
+							header("Location: supplierDashboard.php"); // the home.php is just an example of the redirecting page
 							exit();
 						}
 					} else { // if error to login in the account requested by the user then create record the log in attempt
