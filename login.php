@@ -127,7 +127,7 @@
 		<button type="submit">Login</button>
 		<div class="extra-buttons">
 			<a href="">Create Account</a>
-			<a href="" id="forgotPasswordBtn">forgot password</a>
+			<a href="" id="forgotPasswordBtn">Forgot Password</a>
 		</div>
 	</form>
 
