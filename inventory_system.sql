@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2022 at 12:38 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Generation Time: Jun 07, 2022 at 12:54 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -91,6 +91,16 @@ CREATE TABLE `deliveryitem` (
   `paymentChange` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `deliveryitem`
+--
+
+INSERT INTO `deliveryitem` (`deliveryID`, `requestID`, `itemName`, `quantityDelivered`, `staff_userName`, `supplier_userName`, `paymentChange`) VALUES
+(1, 1, 'Apple', 20, 'princessJ', 'xx_aladin_xx', 0),
+(2, 2, 'Banana', 15, 'princessJ', 'xx_aladin_xx', 10),
+(3, 3, 'Grapes', 30, 'princessJ', 'xx_aladin_xx', 30),
+(4, 4, 'Orange', 30, 'princessJ', 'xx_aladin_xx', 50);
+
 -- --------------------------------------------------------
 
 --
@@ -105,6 +115,16 @@ CREATE TABLE `itemrequests` (
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `itemrequests`
+--
+
+INSERT INTO `itemrequests` (`requestID`, `itemName`, `quantityRequest`, `payment`, `userName`) VALUES
+(1, 'Apple', 20, 160, 'princessJ'),
+(2, 'Banana', 15, 100, 'princessJ'),
+(3, 'Grapes', 30, 150, 'princessJ'),
+(4, 'Orange', 30, 200, 'princessJ');
+
 -- --------------------------------------------------------
 
 --
@@ -118,6 +138,16 @@ CREATE TABLE `items` (
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`itemName`, `stocks`, `pricePerStock`, `userName`) VALUES
+('Apple', 0, 8, 'princessJ'),
+('Banana', 0, 6, 'princessJ'),
+('Grapes', 0, 4, 'princessJ'),
+('Orange', 0, 5, 'princessJ');
+
 -- --------------------------------------------------------
 
 --
@@ -129,6 +159,13 @@ CREATE TABLE `staff` (
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staffID`, `userName`) VALUES
+(2, 'princessJ');
+
 -- --------------------------------------------------------
 
 --
@@ -139,6 +176,13 @@ CREATE TABLE `supplier` (
   `supplierID` int(11) NOT NULL,
   `userName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`supplierID`, `userName`) VALUES
+(2, 'xx_aladin_xx');
 
 --
 -- Indexes for dumped tables
@@ -210,25 +254,25 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `deliveryitem`
 --
 ALTER TABLE `deliveryitem`
-  MODIFY `deliveryID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `deliveryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `itemrequests`
 --
 ALTER TABLE `itemrequests`
-  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `supplierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
