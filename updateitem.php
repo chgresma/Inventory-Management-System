@@ -1,7 +1,7 @@
 <?php  
 	session_start();  
     $con = mysqli_connect("localhost","root","","inventory_system") or die("Error");
-    $username = $_SESSION['userName'];
+    $username = $_SESSION['username'];
     $upitem = $_SESSION['itemName'];
 ?>
 <!DOCTYPE html>
