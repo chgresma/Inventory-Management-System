@@ -49,7 +49,7 @@
                                             <td>".$row['itemName']."</td>
                                             <td>".$row['stocks']."</td>
                                             <td>".$row['pricePerStock']."</td>
-                                            <td>".$row['username']."</td>
+                                            <td>".$row['userName']."</td>
                                         </tr>";
                                         }
                                     }
@@ -142,7 +142,7 @@
                                             <td>".$row['itemName']."</td>
                                             <td>".$row['quantityRequest']."</td>
                                             <td>".$row['payment']."</td>
-                                            <td>".$row['username']."</td>
+                                            <td>".$row['userName']."</td>
                                         </tr>";
                                         }
                                     }
