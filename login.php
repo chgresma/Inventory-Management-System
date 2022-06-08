@@ -139,10 +139,10 @@
 		<?php } ?>
 		<label>Username</label>
 		<input type="text" name="username" placeholder="Username"><br>
-		<label>Old Password</label>
-		<input type="password" name="old_password" placeholder="Old Password"><br>
-		<label>New Password</label>
-		<input type="password" name="new_password" placeholder="New Password"><br>
+		<label>New password</label>
+		<input type="password" name="new_password" placeholder="**********"><br>
+		<label>Confirm password</label>
+		<input type="password" name="confirm_password" placeholder="***********"><br>
 			
 		<button type="submit">Change Password</button>
 		<div class="extra-buttons">
@@ -181,39 +181,34 @@
 	}
 
 	// if only the forgot password form is submitted
-	if(isset($_POST['username']) && isset($_POST['old_password']) && isset($_POST['new_password'])){
+	if(isset($_POST['username']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])){
 		$username = filterInput($_POST['username']);
-		$old_password = filterInput($_POST['old_password']);
 		$new_password = filterInput($_POST['new_password']);
+		$confirm_password = filterInput($_POST['confirm_password']);
 
-		try {
-			// SQL query to check if the username and old_password is correct
-			$sql = "SELECT * FROM account_old_passwords WHERE userName = '$username' AND old_password = '$old_password'";
-			$result = mysqli_query($conn, $sql);
-			// if the username and old_password is correct
-			if(mysqli_num_rows($result) > 0){
-				$row = mysqli_fetch_assoc($result); // fetch the row
-				// update the two tables with new password
-				$sql = "UPDATE account_old_passwords AP, account A  SET AP.old_password = '$new_password', A.passWord ='$new_password' WHERE AP.userName = A.userName AND AP.userName = '$username'";
+		if($new_password === $confirm_password){
+			try {
+				$sql = "UPDATE account SET passWord='$new_password' WHERE userName = '$username'";
 				$result = mysqli_query($conn, $sql);
 				// if the update is successful
 				if($result){
-					// delete the old password from the old_passwords table
+					// delete all the attempts of the user on success update password
 					$sqlDelete = "DELETE FROM authentication_attempts WHERE userName = '$username'";
-					$resultDelete = mysqli_query($conn, $sqlDelete);
+					mysqli_query($conn, $sqlDelete);
 					
 					// redirect to login page with success message
 					header("Location: ?success=Sucessfully changed password");
 					exit();
-				}
-				
-			} else {
-				// if the username and old_password is not correct
-				header("Location: ?forgot_password_error=Wrong old password");
+				} 
+			} catch (Exception $e) {
+				// redirect to login page with error message
+				header("Location: ?forgot_password_error=Something went wrong");
 				exit();
 			}
-		} catch (Exception $e) {
-			echo $e->getMessage();
+		} else {
+			// if ne_password and confirm_password is not same redirect back to forgot password page with error message
+			header("Location: ?forgot_password_error=New password and confirm password does not match");
+			exit();
 		}
 	}
 
@@ -222,7 +217,7 @@
 		$username = filterInput($_POST['username']);
 		$password = filterInput($_POST['password']);
 
-		// if the username is emtpy
+		// if the username is empty
 		if (empty($username)) {
 			// redirect to login page with error message
 			header("Location: login.php?error=Username is required");
@@ -244,7 +239,7 @@
 				// count the number of attempts
 				if($attempResult['total_attempts'] >= 2){
 					// if the number of attempts is greater than 2
-					header("Location: ?error={$attempResult['role']} System: You have exceeded the maximum number of attempts to unknown user please redirect to the forgot password page");
+					header("Location: ?error={$attempResult['role']} System: You have exceeded the maximum number of attempts to unknown user please proceed to the forgot password page");
 					exit();
 				} else {
 					// if the number of attempts is less than 2
@@ -257,7 +252,8 @@
 							$_SESSION['role'] = $row['role'];
 							
 							// change the location to the identified role page
-							header("Location: staffDashboard.php"); // the home.php is just an example of the redirecting page
+							header("Location: staffDashboard.php");
+							// header("Location: home.php"); // the home.php is just an example of the redirecting page
 							exit();
 						} else {
 							echo "Logged in as Supplier!";
@@ -265,17 +261,19 @@
 							$_SESSION['role'] = $row['role'];
 	
 							// change the location to the identified role page
-							header("Location: supplierDashboard.php"); // the home.php is just an example of the redirecting page
+							header("Location: supplierDashboard.php"); 
+							// header("Location: home.php"); // the home.php is just an example of the redirecting page
 							exit();
 						}
 					} else { // if error to login in the account requested by the user then create record the log in attempt
 						try{
-							$dateNow = date('Y-m-d H:i:s');
-							$sql = "INSERT INTO authentication_attempts (userName, date_attempt) VALUES ('$username', '$dateNow')";
-							$result = mysqli_query($conn, $sql);
+							// insert user attempt only if the userName is exist in the account table
+							$sql = "INSERT INTO authentication_attempts (userName) SELECT userName FROM account WHERE userName= '{$username}'";
+							mysqli_query($conn, $sql);
 						} catch (Exception $e) {
 							echo "Error: " . $e->getMessage();
 						}
+						// redirect back to login page with error message
 						header("Location: ?error=Incorect Username or Password");
 						exit();
 					}
