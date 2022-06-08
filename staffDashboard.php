@@ -14,7 +14,7 @@
 
 <body>
     <div>
-        <label style="float: center;">Welcome <?php echo  $_SESSION['userName']; ?>!</label>
+        <label style="float: center;">Welcome <?php echo  $_SESSION['username']; ?>!</label>
 
             <button  style="width: auto;" onclick="location.href='logout.php';"onclick="location.href='logout.php';" value="logout">Logout</button>
 
@@ -49,7 +49,7 @@
                                             <td>".$row['itemName']."</td>
                                             <td>".$row['stocks']."</td>
                                             <td>".$row['pricePerStock']."</td>
-                                            <td>".$row['userName']."</td>
+                                            <td>".$row['username']."</td>
                                         </tr>";
                                         }
                                     }
@@ -142,7 +142,7 @@
                                             <td>".$row['itemName']."</td>
                                             <td>".$row['quantityRequest']."</td>
                                             <td>".$row['payment']."</td>
-                                            <td>".$row['userName']."</td>
+                                            <td>".$row['username']."</td>
                                         </tr>";
                                         }
                                     }
