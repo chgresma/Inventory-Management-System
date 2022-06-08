@@ -14,7 +14,7 @@
 
 <body>
     <div>
-        <label style="float: center;">Welcome <?php echo  $_SESSION['userName']; ?>!</label>
+        <label style="float: center;">Welcome <?php echo  $_SESSION['username']; ?>!</label>
 
             <button  style="width: auto;" onclick="location.href='logout.php';"onclick="location.href='logout.php';" value="logout">Logout</button>
 
